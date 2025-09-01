@@ -12,18 +12,21 @@ class LRUCache:
     Implement the LRU cache here and use the unit tests to check your implementation.
     """
 
-    def __init__(self, capacity: int):
-        self.capacity = capacity
+    def __init__(self, item_limit: int):
+        self.capacity = item_limit
         self.cache = OrderedDict()
 
     def has(self, key: str) -> bool:
-        return key in self.cache
+        if key in self.cache:
+            self.cache.move_to_end(key)
+            return True
+        return False
 
     def get(self, key: str) -> Optional[Any]:
         if key not in self.cache:
             return None
         self.cache.move_to_end(key)
-        return self[key]
+        return self.cache[key]
 
     def set(self, key: str, value: Any):
         if key in self.cache:
@@ -33,4 +36,3 @@ class LRUCache:
             self.cache.popitem(last=False)
 
 
-        
