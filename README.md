@@ -1,5 +1,3 @@
-# Speechify Python Functional Test
-
 ## Project Overview
 
 The project's goal is to implement an LRU Cache Provider, an SSML Parser, and a helper function for converting an SSML Node Tree to a plain text string.
