@@ -1,16 +1,10 @@
-#!/usr/bin/env python3
+# src/lru/impl.py
 from typing import Any, Optional
 from collections import OrderedDict
+from .interfaces import LRUCache
 
-class LRUCache:
-    """
-    A Least Recently Used (LRU) cache keeps items in the cache until it reaches its size
-    and/or item limit (only item in our case). In which case, it removes an item that was accessed
-    least recently.
-    An item is considered accessed whenever `has`, `get`, or `set` is called with its key.
-
-    Implement the LRU cache here and use the unit tests to check your implementation.
-    """
+class LRUCacheImpl(LRUCache):
+    """Concrete implementation of an LRU cache using OrderedDict."""
 
     def __init__(self, item_limit: int):
         self.capacity = item_limit
@@ -28,11 +22,9 @@ class LRUCache:
         self.cache.move_to_end(key)
         return self.cache[key]
 
-    def set(self, key: str, value: Any):
+    def set(self, key: str, value: Any) -> None:
         if key in self.cache:
             self.cache.move_to_end(key)
         self.cache[key] = value
         if len(self.cache) > self.capacity:
             self.cache.popitem(last=False)
-
-
